@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.weekly.mapper.StudentMapper">
+
+    <select id="getStudentByNumber" resultType="com.springboot.weekly.entity.Student">
+        SELECT * FROM student WHERE studentNumber=#{studentNumber}
+    </select>
+
+    <update id="update">
+        update student set password=#{password} where studentNumber=#{studentNumber}
+    </update>
+</mapper>

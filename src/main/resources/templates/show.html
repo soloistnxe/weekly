@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="/../asserts/js/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/../asserts/js/popper.min.js" ></script>
+    <script type="text/javascript" src="/../asserts/js/bootstrap.min.js"></script>
+    <title>显示</title>
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="main::topbar"></div>
+    <div class="table-responsive">
+        <table class="table table-bordered" >
+            <caption>周报详情</caption>
+            </thead>
+            <tbody>
+            <tr>
+                <td>周次</td>
+                <td th:text="${weekly.weeklyId}"></td>
+            </tr>
+            <tr>
+                <td>学习进展</td>
+                <td th:text="${weekly.learnProgress}"></td>
+            </tr>
+            <tr>
+                <td>研发进展</td>
+                <td th:text="${weekly.dailyProgress}"></td>
+            </tr>
+            <tr>
+                <td>研发投入时间</td>
+                <td th:text="${weekly.hour}"></td>
+            </tr>
+            <tr>
+                <td>投入时间分配</td>
+                <td th:text="${weekly.timeShare}"></td>
+            </tr>
+            <tr>
+                <td>体会及问题</td>
+                <td th:text="${weekly.expression}"></td>
+            </tr>
+            <tr>
+                <td>提交时刻</td>
+                <td th:text="${#dates.format(weekly.date, 'yyyy-MM-dd')}">未提交</td>
+            </tr>
+            <tr>
+                <td>审阅意见</td>
+                <td th:text="${weekly.reviewComments}!=null?${weekly.reviewComments}:'未审阅'"></td>
+            </tr>
+            <tr>
+                <td>附件</td>
+                <td>
+                    <form id="_form" method="post" th:action="@{/download}">
+                        <input type="hidden" name="filename" th:value="${weekly.filename}"  />
+                        <a th:text="${weekly.filename}!=null?'附件下载':''" onclick="document.getElementById('_form').submit();"></a>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+<script th:inline="javascript">
+    function apost(event){
+        event.preventDefault(); // 使a自带的方法失效，即无法向addStudent.action发出请求
+        $.ajax({
+            type: "POST", // 使用post方式
+            url: "http://www.baidu.com",
+            contentType:"application/json",
+            data: JSON.stringify({filename:[[${weekly.filename}]]}), // 参数列表，stringify()方法用于将JS对象序列化为json字符串
+            dataType:"json",
+            success: function(result){
+// 请求成功后的操作
+            },
+            error: function(result){
+// 请求失败后的操作
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

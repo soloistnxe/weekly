@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="/../asserts/js/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/../asserts/js/popper.min.js" ></script>
+    <script type="text/javascript" src="/../asserts/js/bootstrap.min.js"></script>
+    <title>Title</title>
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation" th:fragment="topbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/main">[[${session.loginUser}]]</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav">
+                <li class="nav-item"><a  th:href="@{/weekly}" th:class="${activeUri=='weekly'?'nav-link active':'nav-link'}" >周报列表</a></li>
+                <li ><a  th:href="@{/add}" th:class="${activeUri=='add'?'nav-link active':'nav-link'}" >填写周报</a></li>
+                <li ><a  th:href="@{/password}" th:class="${activeUri=='password'?'nav-link active':'nav-link'}" >修改密码</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active">
+                    <a th:href="@{/}"><i class="glyphicon glyphicon-user"></i>登出</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="myCarousel" data-slide-to="1"></li>
+        <li data-target="myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="/../asserts/img/1.jpg" alt="First slide">
+        </div>
+        <div class="item">
+            <img src="/../asserts/img/2.jpg" alt="Second slide">
+        </div>
+        <div class="item">
+            <img src="/../asserts/img/3.jpg" alt="Third slide">
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="left carousel-control" href="$('div[id=myCarousel]')" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+
+
+<script>
+    $(function(){
+        // 初始化轮播
+
+            $("#myCarousel").carousel('cycle');
+
+    });
+</script>
+
+
+
+
+</body>
+</html>
