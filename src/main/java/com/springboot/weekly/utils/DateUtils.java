@@ -1,14 +1,39 @@
 package com.springboot.weekly.utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtils {
-    public static Date getDate() {
-        Date date = new Date();
-        long longTime = date.getTime();  // 2019061017320511
-        java.sql.Date sDate = new java.sql.Date(longTime);
+    public static String getDate() {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+    public static Date ConverToDate(String strDate) {
+        DateFormat df = null;
+        if(strDate.contains("HH")){
+            df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }else{
+            df = new SimpleDateFormat("yyyy-MM-dd");
+        }
 
-        return sDate;
+        try {
+            return df.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public static Date getFormatDate(){
+        return ConverToDate(getDate());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(DateUtils.getFormatDate());
     }
 
 }

@@ -1,5 +1,8 @@
 package com.springboot.weekly.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 //周报内容
@@ -12,6 +15,8 @@ public class Weekly {
     private Integer hour;
     private String timeShare;
     private String expression;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
     private String reviewComments;
     private String filename;

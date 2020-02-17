@@ -43,10 +43,5 @@ public class FileController {
         }
     }
 
-    //当请求localhost:8080的时候 默认跳转到index.html页面
-    @RequestMapping("/index")
-    public ModelAndView index() {
-        System.out.println("i am springboot");
-        return new ModelAndView("index");
-    }
+
 }

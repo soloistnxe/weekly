@@ -5,20 +5,46 @@
 <mapper namespace="com.springboot.weekly.mapper.WeeklyMapper">
 
     <select id="getWeeklyByStudentNumber" resultType="com.springboot.weekly.entity.Weekly">
-        SELECT * FROM weekly WHERE studentNumber=#{studentNumber} ORDER BY date DESC
+        SELECT *
+        FROM
+          weekly
+        WHERE
+          studentNumber=#{studentNumber}
+        ORDER BY date DESC
     </select>
 
     <insert id="insert">
-        INSERT INTO weekly(studentNumber,weeklyId,learnProgress,dailyProgress,hour,timeShare,expression,date,filename)
-        VALUES (#{studentNumber},#{weeklyId},#{learnProgress},#{dailyProgress},#{hour},#{timeShare},#{expression},#{date},#{filename})
+        INSERT INTO
+          weekly(studentNumber,weeklyId,learnProgress,dailyProgress,hour,timeShare,expression,date,filename)
+        VALUES
+          (#{studentNumber},#{weeklyId},#{learnProgress},#{dailyProgress},#{hour},#{timeShare},#{expression},#{date},#{filename})
     </insert>
 
     <update id="update">
-        update weekly set weeklyId=#{weeklyId},learnProgress=#{learnProgress},dailyProgress=#{dailyProgress},hour=#{hour},timeShare=#{timeShare},
-        expression=#{expression},date=#{date} where id=#{id} and studentNumber=#{studentNumber}
+        update
+          weekly
+        set
+          weeklyId=#{weeklyId},learnProgress=#{learnProgress},dailyProgress=#{dailyProgress},hour=#{hour},timeShare=#{timeShare},
+          expression=#{expression},date=#{date} where id=#{id} and studentNumber=#{studentNumber}
     </update>
 
     <select id="getWeeklyByStudentNumberAndWeeklyId" resultType="com.springboot.weekly.entity.Weekly">
-        SELECT * FROM weekly WHERE studentNumber=#{studentNumber} AND weeklyId=#{weeklyId}
+        SELECT *
+        FROM
+          weekly
+        WHERE
+          studentNumber=#{studentNumber}
+        AND
+          weeklyId=#{weeklyId}
+    </select>
+
+    <select id="getWeeklyList" resultType="java.util.Map">
+        SELECT a.studentNumber,b.studentName,a.weeklyId,a.date
+        FROM
+          (SELECT studentNumber,weeklyId,date FROM weekly ORDER BY date DESC) a,student b
+        WHERE
+          b.studentNumber=a.studentNumber
+        GROUP BY
+          a.studentNumber;
     </select>
 </mapper>

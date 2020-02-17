@@ -4,6 +4,7 @@ public class Student {
     private String studentNumber; //学号
     private String studentName;
     private String password;
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -29,12 +30,21 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getPasswaord() {
+
+    public String getPassword() {
         return password;
     }
 
-    public void setPasswaord(String passwaord) {
+    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     @Override
@@ -44,6 +54,7 @@ public class Student {
                 ", studentNumber='" + studentNumber + '\'' +
                 ", studentName='" + studentName + '\'' +
                 ", password='" + password + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

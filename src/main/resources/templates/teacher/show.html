@@ -41,10 +41,10 @@
     </style>
 </head>
 <body>
-    <div th:replace="main::topbar"></div>
+    <div th:replace="teacher/main::topbar"></div>
     <div class="table-responsive">
         <table class="table table-bordered" >
-            <caption>周报详情</caption>
+            <caption th:text="${weekly.}">周报详情</caption>
             </thead>
             <tbody>
             <tr>
@@ -76,10 +76,6 @@
                 <td th:text="${#dates.format(weekly.date, 'yyyy-MM-dd HH:mm:ss')}">未提交</td>
             </tr>
             <tr>
-                <td>审阅意见</td>
-                <td th:text="${weekly.reviewComments}!=null?${weekly.reviewComments}:'未审阅'"></td>
-            </tr>
-            <tr>
                 <td>附件</td>
                 <td>
                     <form id="_form" method="post" th:action="@{/download}">
@@ -92,9 +88,19 @@
         </table>
     </div>
 
-    <script type="text/javascript">
+    <div class="form-group">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        <form action="#">
+            <label >审阅意见</label>
+            <textarea class="form-control" rows="3" name="reviewComments"></textarea>
+            <br>
+            <button type="submit" class="btn btn-sm btn-primary">审阅提交</button>
+        </form>
+        </main>
+    </div>
 
+<script>
 
-    </script>
+</script>
 </body>
 </html>

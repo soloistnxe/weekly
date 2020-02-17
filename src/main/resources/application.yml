@@ -4,7 +4,7 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/weekly?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/weekly?serverTimezone=GMT%2B8
     type: com.alibaba.druid.pool.DruidDataSource
     #   数据源其他配置
     initialSize: 5
@@ -24,7 +24,8 @@ spring:
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
   mvc:
-    date-format: yyyy-MM-dd
+    date-format: yyyy-MM-dd HH:mm:ss
+
   thymeleaf:
     cache: false
   servlet:

@@ -13,9 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 
 @Controller
@@ -60,7 +58,7 @@ public class WeeklyController {
             }
         }
         weekly.setWeeklyId(weekltid+"|"+weekltid_1);
-        weekly.setDate(DateUtils.getDate());
+        weekly.setDate(new Date());
         boolean insert = weeklyMapper.insert(weekly);
         if(insert){
             System.out.println("保存的周报信息："+weekly);
@@ -101,7 +99,7 @@ public class WeeklyController {
     public String editWeekly(@RequestParam("file") MultipartFile file,@RequestParam("weeklyId")String weekltid,@RequestParam("weeklyId1") String weekltid_1,Weekly weekly){
         //周报添加页面
         weekly.setWeeklyId(weekltid+"|"+weekltid_1);
-        weekly.setDate(DateUtils.getDate());
+        weekly.setDate(new Date());
         System.out.println(weekly.getDate());
         boolean update = weeklyMapper.update(weekly);
         if(update){
@@ -111,5 +109,6 @@ public class WeeklyController {
             return "commons/error";
         }
     }
+
 
 }

@@ -3,14 +3,37 @@
 <head>
     <meta http-equiv="Content-Type"; content="multipart/form-data; charset=utf-8"/>
     <title>Title</title>
+    <link rel="stylesheet" href="//cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="//cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <h1>hello springboot</h1>
-<form method="post" action="/upload" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <input type="submit" value="上传">
-</form>
-<br>
-<a href="/download">下载</a>
+
+
+    <!-- 轮播（Carousel）指标 --
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <img class="img-slide img1" src="/../asserts/img/1.jpg" alt="1">
+        <img class="img-slide img2" src="/../asserts/img/2.jpg" alt="2">
+        <img class="img-slide img3" src="/../asserts/img/3.jpg" alt="3">
+    </div>
+
+<script type="text/javascript">
+    var index=0;
+    //改变图片
+    function ChangeImg() {
+        index++;
+        var a=document.getElementsByClassName("img-slide");
+        if(index>=a.length) index=0;
+        for(var i=0;i<a.length;i++){
+            a[i].style.display='none';
+        }
+        a[index].style.display='block';
+    }
+    //设置定时器，每隔两秒切换一张图片
+    setInterval(ChangeImg,2000);
+</script>
 </body>
 </html>

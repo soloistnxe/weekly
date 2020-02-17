@@ -5,7 +5,7 @@
 <mapper namespace="com.springboot.weekly.mapper.StudentMapper">
 
     <select id="getStudentByNumber" resultType="com.springboot.weekly.entity.Student">
-        SELECT * FROM student WHERE studentNumber=#{studentNumber}
+        SELECT * FROM student WHERE studentNumber=#{studentNumber} and status=#{status}
     </select>
 
     <update id="update">

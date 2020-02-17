@@ -47,31 +47,34 @@
 	<body>
 		<!--引入抽取的topbar-->
 		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
-		<div th:replace="main::topbar"></div>
+		<div th:replace="teacher/main::topbar"></div>
 
 		<div class="container-fluid">
 			<div class="row">
 				<!--引入侧边栏-->
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<div class="table-responsive">
-						<table class="table table-striped table-sm">
+						<table class="table table-striped table-sm" align="center">
 							<thead>
 								<tr>
+									<th>姓名</th>
 									<th>学号</th>
 									<th>周次</th>
+									<th>提交日期</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
+								<tr th:each="weekly:${weeklylist}">
+									<td th:text="${weekly.studentName}"></td>
 
-								<tr th:each="weekly:${weeklys}">
 									<td th:text="${weekly.studentNumber}"></td>
 
 									<td th:text="${weekly.weeklyId}"></td>
+									<td th:text="${#dates.format(weekly.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
 
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{/show/}+${weekly.weeklyId}">查看</a>
-										<a class="btn btn-sm btn-danger" th:href="@{/edit/}+${weekly.weeklyId}">编辑</a>
+										<a class="btn btn-sm btn-primary" th:href="@{/teacher/show/}+${weekly.weeklyId}+@{/}+${weekly.studentNumber}">审阅</a>
 									</td>
 								</tr>
 							</tbody>
