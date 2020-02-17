@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="/../asserts/js/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/../asserts/js/popper.min.js" ></script>
+    <script type="text/javascript" src="/../asserts/js/bootstrap.min.js"></script>
+    <title>5秒钟后自动跳转网页</title>
+    <!--5秒钟后自动跳转网页-->
+    <script type ="text/javascript" language ="javascript">
+        //设置初始值
+        var i = 5;
+        //获取定时器的返回值，用来清除定时器
+        var cleartime;
+        //使用定时器，第一个参数，要执行定时器的函数，第二个参数，每个多长时间进行执行，1000MS = 1S
+        cleartime = setInterval("fun()", 1000);
+        //用来执行的函数
+        function fun() {
+            if (i == 0) {
+                //跳转网页
+                window.location.href = "/teacher/weekly";
+                //清除定时器，如未清除定时器，则会变为-1，-2，-3.......
+                clearInterval(cleartime);
+            }
+            //显示i的值
+            document.getElementById("mes").innerHTML = i;
+            //i - 1
+            i--;
+        }
+    </script>
+</head>
+<body>
+<div th:replace="teacher/main::topbar"></div>
+    <p>保存成功！</p>
+    <form id="form1" runat="server">
+        <p><span id ="mes">5</span></p>
+    </form>
+</body>
+</html>

@@ -61,6 +61,7 @@
 									<th>学号</th>
 									<th>周次</th>
 									<th>提交日期</th>
+                                    <th>审阅状态</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -72,9 +73,9 @@
 
 									<td th:text="${weekly.weeklyId}"></td>
 									<td th:text="${#dates.format(weekly.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
-
+                                    <td th:text="${weekly.reviewComments}!=null?'已审阅':'未审阅'"></td>
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{/teacher/show/}+${weekly.weeklyId}+@{/}+${weekly.studentNumber}">审阅</a>
+										<a class="btn btn-sm btn-primary" th:href="@{/teacher/show/}+${weekly.weeklyId}+@{/}+${weekly.studentNumber}+@{/}+${weekly.studentName}">审阅</a>
 									</td>
 								</tr>
 							</tbody>

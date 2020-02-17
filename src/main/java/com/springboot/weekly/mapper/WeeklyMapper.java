@@ -11,6 +11,7 @@ public interface WeeklyMapper {
     public List<Weekly> getWeeklyByStudentNumber(String studentNumber);
     public boolean insert(Weekly weekly);
     public boolean update(Weekly weekly);
+    public boolean teacherCheck(Weekly weekly);
     public Weekly getWeeklyByStudentNumberAndWeeklyId(String studentNumber,String weeklyId);
     public List<HashMap> getWeeklyList();
 }

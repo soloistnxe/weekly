@@ -39,12 +39,21 @@
     </select>
 
     <select id="getWeeklyList" resultType="java.util.Map">
-        SELECT a.studentNumber,b.studentName,a.weeklyId,a.date
+        SELECT a.studentNumber,b.studentName,a.weeklyId,a.date,a.reviewComments
         FROM
-          (SELECT studentNumber,weeklyId,date FROM weekly ORDER BY date DESC) a,student b
+          (SELECT * FROM weekly ORDER BY date DESC) a,student b
         WHERE
           b.studentNumber=a.studentNumber
         GROUP BY
           a.studentNumber;
     </select>
+
+    <update id="teacherCheck">
+        update
+          weekly
+        set
+          reviewComments=#{reviewComments}
+        where
+          weeklyId=#{weeklyId} and studentNumber=#{studentNumber}
+    </update>
 </mapper>
