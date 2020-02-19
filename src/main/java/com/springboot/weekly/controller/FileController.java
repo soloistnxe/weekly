@@ -1,5 +1,6 @@
 package com.springboot.weekly.controller;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,17 +10,21 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.xml.ws.Response;
+import java.io.*;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
 public class FileController {
     @PostMapping("/download")
     public void download(HttpServletResponse response,@RequestParam("filename") String filename) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "text/html;charset=UTF-8");
+        PrintWriter out = null;
+
         try {
+            out = response.getWriter();
             // 文件地址，真实环境是存放在数据库中的
             File file = new File(filename);
             // 创建输入流，传入文件对象
@@ -37,9 +42,14 @@ public class FileController {
             }
             os.close();
             fis.close();
-                   //为了测试方便  我写了两个html  一个是success.html还有一个是error.html  用来表示成功还是失败
         } catch (IOException e) {
             e.printStackTrace();
+
+            out.print("<script>alert('系统找不到指定文件');</script>");
+            out.flush();
+            
+        }finally {
+            IOUtils.closeQuietly(out);
         }
     }
 

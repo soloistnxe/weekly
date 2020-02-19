@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>通知发布</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script type="text/javascript" src="/../asserts/js/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/../asserts/js/popper.min.js" ></script>
+    <script type="text/javascript" src="/../asserts/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+    <div th:replace="teacher/main::topbar"></div>
+    <div class="container-fluid" align="center">
+        <form th:action="@{/teacher/add}" method="post">
+            <div class="form-group">
+                <label >通知标题</label>
+                <input  id="informationTitle" type="text"  class="form-control" name="informationTitle" style="width:300px;">
+            </div>
+            <div class="form-group">
+                <label >通知内容</label>
+                <textarea  id="information" class="form-control" rows="10" name="information" style="width:1000px;"></textarea>
+            </div>
+            <button type="submit" class="btn btn-sm btn-primary" >发布</button>
+        </form>
+    </div>
+
+<script type="text/javascript">
+    function _method() {
+        console.log("进入事件");
+        var val = $("#informationTitle").val();
+        var text =$("#information").val();
+        $.ajax({
+            type:"POST",
+            url:"/teacher/add",
+            // data:{"id":val},     // data参数是可选的，有多种写法，也可以直接在url参数拼接参数上去，例如这样：url:"getUser?id="+val,
+            data:{"informationTitle":val,"information":text},
+            async:false,   // 异步，默认开启，也就是$.ajax后面的代码是不是跟$.ajx里面的代码一起执行
+            cache:true,  // 表示浏览器是否缓存被请求页面,默认是 true
+            dataType:"text",   // 返回浏览器的数据类型，指定是json格式，前端这里才可以解析json数据
+            success:function(data){
+                alert("发布成功")
+                window.location.href='/teacher/weekly';
+            },
+            error:function(){
+                alert("发生错误");
+            },
+
+        });
+    }
+
+</script>
+</body>
+</html>

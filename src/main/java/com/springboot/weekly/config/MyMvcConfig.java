@@ -14,11 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 //@EnableWebMvc   不要接管SpringMVC
 @Configuration
 public class MyMvcConfig extends WebMvcConfigurerAdapter {
-
-
-
-
-
     //所有的WebMvcConfigurerAdapter组件都会一起起作用
     @Bean //将组件注册在容器
     public WebMvcConfigurerAdapter webMvcConfigurerAdapter(){
@@ -32,12 +27,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 //静态资源；  *.css , *.js
                 //SpringBoot已经做好了静态资源映射
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/index.html","/","/user/login");
+                        .excludePathPatterns("/login.html","/","/user/login","/asserts/**","/webjars/**");
             }
         };
         return adapter;
     }
-
     @Bean
     public LocaleResolver localeResolver(){
 

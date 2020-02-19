@@ -50,6 +50,7 @@
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a  th:href="@{/weekly}" th:class="${activeUri=='weekly'?'nav-link active':'nav-link'}" >周报列表</a></li>
                 <li ><a  th:href="@{/add}" th:class="${activeUri=='add'?'nav-link active':'nav-link'}" >填写周报</a></li>
+                <li ><a  th:href="@{/information}">查看重要信息</a></li>
                 <li ><a  th:href="@{/password}" th:class="${activeUri=='password'?'nav-link active':'nav-link'}" >修改密码</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -64,6 +65,10 @@
 <div id="myCarousel" class="carousel slide">
     <!-- 轮播（Carousel）指标 -->
 
+    <div align="center">
+        <h4  th:text="'最新通知:'+${msg.informationTitle}"></h4>
+        <a th:href="@{/notice/}+${msg.information}">详情</a>
+    </div>
     <!-- 轮播（Carousel）项目 -->
     <div class="carousel-inner">
         <div class="item active">
@@ -95,7 +100,7 @@
         a[index].style.display='block';
     }
     //设置定时器，每隔两秒切换一张图片
-    setInterval(ChangeImg,5000);
+    setInterval(ChangeImg,2000);
 </script>
 </body>
 </html>

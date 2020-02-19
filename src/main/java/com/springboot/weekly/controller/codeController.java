@@ -11,18 +11,32 @@ public class codeController {
     StudentMapper studentMapper;
     @GetMapping("/password")
     public String password(){
-        return "password";
+        return "student/password";
     }
+
+    @GetMapping("/teacher/password")
+    public String teacherPassword(){
+        return "/teacher/password";
+    }
+
+
+    @PostMapping(value = "/teacher/edit_password")
+    public String teacherPassword(Map<String,Object> map, @RequestParam("password") String password,
+                           @RequestParam("password_affirm") String password_affirm, HttpSession session){
+
+            studentMapper.update(password, (String) session.getAttribute("studentNumber"));
+
+            return "redirect:/teacher/weekly";
+
+    }
+
     @PostMapping(value = "/edit_password")
     public String password(Map<String,Object> map, @RequestParam("password") String password,
                            @RequestParam("password_affirm") String password_affirm, HttpSession session){
-        if(password.equals(password_affirm)){
-            studentMapper.update(password, (String) session.getAttribute("studentNumber"));
-            map.put("msg","修改成功");
-            return "redirect:weekly";
-        }else {
-            map.put("msg","两次输入密码不一致");
-            return "redirect:/password";
-        }
+
+        studentMapper.update(password, (String) session.getAttribute("studentNumber"));
+
+        return "redirect:/weekly";
+
     }
 }

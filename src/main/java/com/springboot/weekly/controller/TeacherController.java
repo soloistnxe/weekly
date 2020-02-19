@@ -36,6 +36,7 @@ public class TeacherController {
     }
     @PostMapping("/teacher/check")
     public String checkWeekly(Weekly weekly,Map<String,String> map){
+        weekly.setCheckStatus("已审阅");
         boolean b = weeklyMapper.teacherCheck(weekly);
         if(b){
             System.out.println("审阅："+weekly);

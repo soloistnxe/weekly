@@ -8,7 +8,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Dashboard Template for Bootstrap</title>
+		<title>周报列表</title>
 		<!-- Bootstrap core CSS -->
 		<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -47,7 +47,7 @@
 	<body>
 		<!--引入抽取的topbar-->
 		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
-		<div th:replace="main::topbar"></div>
+		<div th:replace="student/main::topbar"></div>
 
 		<div class="container-fluid">
 			<div class="row">
@@ -59,6 +59,7 @@
 								<tr>
 									<th>学号</th>
 									<th>周次</th>
+									<th>审阅状态</th>
 									<th>操作</th>
 								</tr>
 							</thead>
@@ -69,9 +70,11 @@
 
 									<td th:text="${weekly.weeklyId}"></td>
 
+									<td th:text="${weekly.checkStatus}"></td>
+
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{/show/}+${weekly.weeklyId}">查看</a>
-										<a class="btn btn-sm btn-danger" th:href="@{/edit/}+${weekly.weeklyId}">编辑</a>
+										<a class="btn btn-sm btn-primary" th:href="@{/show/}+${#strings.replace(weekly.weeklyId,'|','%7C')}">查看</a>
+										<a class="btn btn-sm btn-danger" th:href="@{/edit/}+${#strings.replace(weekly.weeklyId,'|','%7C')}">编辑</a>
 									</td>
 								</tr>
 							</tbody>

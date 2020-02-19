@@ -19,6 +19,7 @@ public class Weekly {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
     private String reviewComments;
+    private String checkStatus;
     private String filename;
 
     public String getStudentNumber() {
@@ -109,6 +110,14 @@ public class Weekly {
         this.filename = filename;
     }
 
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
     @Override
     public String toString() {
         return "Weekly{" +
@@ -122,6 +131,7 @@ public class Weekly {
                 ", expression='" + expression + '\'' +
                 ", date=" + date +
                 ", reviewComments='" + reviewComments + '\'' +
+                ", checkStatus='" + checkStatus + '\'' +
                 ", filename='" + filename + '\'' +
                 '}';
     }

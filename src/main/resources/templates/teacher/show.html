@@ -92,7 +92,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
         <form th:action="@{/teacher/check}" method="post">
             <label >审阅意见</label>
-            <textarea class="form-control" rows="3" th:text="${weekly.reviewComments}" name="reviewComments"></textarea>
+            <textarea class="form-control" cols="" rows="4" th:text="${weekly.reviewComments}" name="reviewComments"></textarea>
             <input class="hide" name="studentNumber" th:value="${weekly.studentNumber}">
             <input class="hide" name="weeklyId" th:value="${weekly.weeklyId}">
             <br>

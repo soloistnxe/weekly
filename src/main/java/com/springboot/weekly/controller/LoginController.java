@@ -1,6 +1,8 @@
 package com.springboot.weekly.controller;
 
+import com.springboot.weekly.entity.Information;
 import com.springboot.weekly.entity.Student;
+import com.springboot.weekly.mapper.InformationMapper;
 import com.springboot.weekly.mapper.StudentMapper;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,43 +23,39 @@ public class LoginController {
 //    @GetMapping
     @Autowired
     StudentMapper studentMapper;
+
+    @Autowired
+    InformationMapper informationMapper;
     //@RequestMapping(value = "/user/login",method = RequestMethod.POST)
     @PostMapping(value = "/user/login")
-    public String login(@RequestParam("status") Integer status,@RequestParam("studentnumber") String studentnumber,
+    public String login(@RequestParam("studentnumber") String studentnumber,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
-        //status=1表示是老师登陆
-        if(status==1){
-            Student teacher=studentMapper.getStudentByNumber(studentnumber,status);
-            if(teacher!=null && password.equals(teacher.getPassword())){
+
+
+            Student user=studentMapper.getStudentByNumber(studentnumber);
+        Information lastInformation = informationMapper.getLastInformation();
+
+        if(user!=null && password.equals(user.getPassword())){
                 //登陆成功，防止表单重复提交，可以重定向到主页
-                session.setAttribute("loginUser",teacher.getStudentName());
-                session.setAttribute("studentNumber",teacher.getStudentNumber());
-                System.out.println(teacher);
-                return "teacher/main";
+                session.setAttribute("loginUser",user.getStudentName());
+                session.setAttribute("studentNumber",user.getStudentNumber());
+                //将最新的通知信息返回前台
+                map.put("msg",lastInformation);
+                System.out.println(user);
+                if(user.getStatus()==1)
+                    return "teacher/main";
+                else
+                    return "student/main";
             }else{
                 //登陆失败
-
-                map.put("msg","用户名或密码错误");
-                return  "login";
-            }
-        }else {
-            Student student=studentMapper.getStudentByNumber(studentnumber,status);
-            if(student!=null && password.equals(student.getPassword())){
-                //登陆成功，防止表单重复提交，可以重定向到主页
-                session.setAttribute("loginUser",student.getStudentName());
-                session.setAttribute("studentNumber",student.getStudentNumber());
-                System.out.println(student);
-                return "main";
-            }else{
-                //登陆失败
-
                 map.put("msg","用户名或密码错误");
                 return  "login";
             }
         }
 
-    }
+
+
 
     @GetMapping(value = "/")
     public String loginUser(){
@@ -65,8 +63,17 @@ public class LoginController {
     }
 
     @GetMapping(value = "/main")
-    public String gotoMain(){
-        return "main";
+    public String gotoMain(Map<String,Object> map){
+        Information lastInformation = informationMapper.getLastInformation();
+        map.put("msg",lastInformation);
+        return "student/main";
+    }
+
+    @GetMapping(value = "/teacher/main")
+    public String gotoTeacherMain(Map<String,Object> map){
+        Information lastInformation = informationMapper.getLastInformation();
+        map.put("msg",lastInformation);
+        return "teacher/main";
     }
 
 

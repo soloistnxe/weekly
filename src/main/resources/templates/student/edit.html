@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>编辑周报</title>
+
+
+
+
+	<!-- Bootstrap core CSS -->
+	<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script type="text/javascript" src="/../asserts/js/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="/../asserts/js/popper.min.js" ></script>
+	<script type="text/javascript" src="/../asserts/js/bootstrap.min.js"></script>
+
+	<script src="https://cdn.bootcss.com/moment.js/2.22.0/moment-with-locales.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+
+	<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/i18n/defaults-*.min.js"></script>
+	<style type="text/css">
+		/* Chart.js */
+		/* Chart.js */
+
+		@-webkit-keyframes chartjs-render-animation {
+			from {
+				opacity: 0.99
+			}
+			to {
+				opacity: 1
+			}
+		}
+
+		@keyframes chartjs-render-animation {
+			from {
+				opacity: 0.99
+			}
+			to {
+				opacity: 1
+			}
+		}
+
+		.chartjs-render-monitor {
+			-webkit-animation: chartjs-render-animation 0.001s;
+			animation: chartjs-render-animation 0.001s;
+		}
+
+	</style>
+</head>
+
+<body>
+<!--引入抽取的topbar-->
+<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+<div th:replace="student/main::topbar"></div>
+
+<div class="container-fluid">
+	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+		<form th:action="@{/edit}" method="post" enctype="multipart/form-data">
+			<input class="hide" name="studentNumber" th:value="${session.studentNumber}">
+			<input class="hide" name="id" th:value="${weekly.id}">
+			<div class="row">
+				<div class='col-sm-4'>
+					<div class="form-group">
+						<label>选择开始时间：</label>
+						<!--指定 date标记-->
+						<div class='input-group date' id='datetimepicker1'>
+							<input type='text' class="form-control " name="weeklyId" th:value="${weeklyId}" />
+							<span class="input-group-addon">
+                    						<span class="glyphicon glyphicon-calendar"></span>
+                						</span>
+						</div>
+					</div>
+				</div>
+				<div class='col-sm-4'>
+					<div class="form-group">
+						<label>选择结束时间：</label>
+						<!--指定 date标记-->
+						<div class='input-group date' id='datetimepicker2'>
+							<input type='text' class="form-control" name="weeklyId1" th:value="${weeklyId1}"/>
+							<span class="input-group-addon">
+                    						<span class="glyphicon glyphicon-calendar"></span>
+                						</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label >本周学习进展</label>
+				<textarea class="form-control" rows="3" name="learnProgress" th:text="${weekly.learnProgress}"></textarea>
+			</div>
+			<div class="form-group">
+				<label >本周科研开发及日常事务进展</label>
+				<textarea class="form-control" rows="3" name="dailyProgress" th:text="${weekly.dailyProgress}"></textarea>
+			</div>
+			<div class="form-group">
+				<label >研发时间</label><br>
+				<select class="selectpicker" data-style="btn-inverse" id="select_id" name="hour" th:value="${weekly.hour}">
+					<option value="1">1小时</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label >本周投入的时间的大致分配情况</label>
+				<textarea class="form-control" rows="3" name="timeShare" th:text="${weekly.timeShare}"></textarea>
+			</div>
+			<div class="form-group">
+				<label >心得、体会、意见、建议；如有通知，在这里收集信息</label>
+				<textarea class="form-control" rows="3" name="expression" th:text="${weekly.expression}"></textarea>
+			</div>
+			<input id="lefile" type="file" name="file" style="display:none">
+			<div class="input-append">
+				<label>文件上传(最大不得超过50MB)</label>
+				<input id="photoCover" class="input-large" type="text"  style="height:30px;">
+				<a class="btn btn-default" onclick="$('input[id=lefile]').click();">选择</a>
+			</div>
+			<button type="submit" class="btn btn-sm btn-primary">提交</button>
+		</form>
+	</main>
+</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script>
+	$(function () {
+		var picker1 = $('#datetimepicker1').datetimepicker({
+			format: 'YYYY-MM-DD',
+			locale: moment.locale('zh-cn'),
+			//minDate: '2016-7-1'
+		});
+		var picker2 = $('#datetimepicker2').datetimepicker({
+			format: 'YYYY-MM-DD',
+			locale: moment.locale('zh-cn')
+		});
+		//动态设置最小值
+		picker1.on('dp.change', function (e) {
+			picker2.data('DateTimePicker').minDate(e.date);
+		});
+		//动态设置最大值
+		picker2.on('dp.change', function (e) {
+			picker1.data('DateTimePicker').maxDate(e.date);
+		});
+	});
+	$(document).ready(function(){
+
+		for(var i=2;i<99;i++){
+			$("#select_id").append("<option value='"+i+"'>"+i+"小时</option>");
+		}
+	});
+
+	$('input[id=lefile]').change(function() {
+		$('#photoCover').val($(this).val());
+	});
+</script>
+<!-- Icons -->
+</body>
+
+</html>

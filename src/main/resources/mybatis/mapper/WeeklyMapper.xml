@@ -15,9 +15,9 @@
 
     <insert id="insert">
         INSERT INTO
-          weekly(studentNumber,weeklyId,learnProgress,dailyProgress,hour,timeShare,expression,date,filename)
+          weekly(studentNumber,weeklyId,learnProgress,dailyProgress,hour,timeShare,expression,checkStatus,date,filename)
         VALUES
-          (#{studentNumber},#{weeklyId},#{learnProgress},#{dailyProgress},#{hour},#{timeShare},#{expression},#{date},#{filename})
+          (#{studentNumber},#{weeklyId},#{learnProgress},#{dailyProgress},#{hour},#{timeShare},#{expression},#{checkStatus},#{date},#{filename})
     </insert>
 
     <update id="update">
@@ -25,7 +25,7 @@
           weekly
         set
           weeklyId=#{weeklyId},learnProgress=#{learnProgress},dailyProgress=#{dailyProgress},hour=#{hour},timeShare=#{timeShare},
-          expression=#{expression},date=#{date} where id=#{id} and studentNumber=#{studentNumber}
+          expression=#{expression},date=#{date},filename=#{filename} where id=#{id} and studentNumber=#{studentNumber}
     </update>
 
     <select id="getWeeklyByStudentNumberAndWeeklyId" resultType="com.springboot.weekly.entity.Weekly">
@@ -39,20 +39,20 @@
     </select>
 
     <select id="getWeeklyList" resultType="java.util.Map">
-        SELECT a.studentNumber,b.studentName,a.weeklyId,a.date,a.reviewComments
+        SELECT a.studentNumber,b.studentName,a.weeklyId,a.date,a.reviewComments,a.checkStatus
         FROM
-          (SELECT * FROM weekly ORDER BY date DESC) a,student b
+          weekly a,student b
         WHERE
           b.studentNumber=a.studentNumber
-        GROUP BY
-          a.studentNumber;
+        ORDER BY
+          a.date DESC;
     </select>
 
     <update id="teacherCheck">
         update
           weekly
         set
-          reviewComments=#{reviewComments}
+          reviewComments=#{reviewComments},checkStatus=#{checkStatus}
         where
           weeklyId=#{weeklyId} and studentNumber=#{studentNumber}
     </update>

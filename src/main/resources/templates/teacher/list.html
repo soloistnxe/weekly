@@ -8,7 +8,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Dashboard Template for Bootstrap</title>
+		<title>周报列表</title>
 		<!-- Bootstrap core CSS -->
 		<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
@@ -73,9 +73,9 @@
 
 									<td th:text="${weekly.weeklyId}"></td>
 									<td th:text="${#dates.format(weekly.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                    <td th:text="${weekly.reviewComments}!=null?'已审阅':'未审阅'"></td>
+                                    <td th:text="${weekly.checkStatus}"></td>
 									<td>
-										<a class="btn btn-sm btn-primary" th:href="@{/teacher/show/}+${weekly.weeklyId}+@{/}+${weekly.studentNumber}+@{/}+${weekly.studentName}">审阅</a>
+										<a class="btn btn-sm btn-primary" th:href="@{/teacher/show/}+${#strings.replace(weekly.weeklyId,'|','%7C')}+@{/}+${weekly.studentNumber}+@{/}+${weekly.studentName}">审阅</a>
 									</td>
 								</tr>
 							</tbody>
