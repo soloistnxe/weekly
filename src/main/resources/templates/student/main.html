@@ -62,13 +62,16 @@
         </div>
     </div>
 </nav>
+
+
+<div align="center">
+    <h4  th:text="'最新通知:'+${msg.informationTitle}"></h4>
+    <a th:href="@{/notice/}+${msg.information}">详情</a>
+</div>
 <div id="myCarousel" class="carousel slide">
     <!-- 轮播（Carousel）指标 -->
 
-    <div align="center">
-        <h4  th:text="'最新通知:'+${msg.informationTitle}"></h4>
-        <a th:href="@{/notice/}+${msg.information}">详情</a>
-    </div>
+
     <!-- 轮播（Carousel）项目 -->
     <div class="carousel-inner">
         <div class="item active">
