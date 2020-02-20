@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * 教师端发布通知
+ */
 @Controller
 public class InformationController {
     @Autowired

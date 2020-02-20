@@ -14,16 +14,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 教师端
+ */
 @Controller
 public class TeacherController {
     @Autowired
     private WeeklyMapper weeklyMapper;
+
+    //查看学生周报列表
     @GetMapping("/teacher/weekly")
     public String studentWeeklyList(Model model){
         List<HashMap> weeklyList = weeklyMapper.getWeeklyList();
         model.addAttribute("weeklylist",weeklyList);
         return "teacher/list";
     }
+
+    //显示周报详情
     @GetMapping("/teacher/show/{weeklyId}/{studentNumber}/{studentName}")
     public String weeklyCheck(@PathVariable("weeklyId") String weeklyId,
                               @PathVariable("studentNumber") String studentNumber,
@@ -34,6 +41,8 @@ public class TeacherController {
         model.addAttribute("weekly",weeklyByStudentNumberAndWeeklyId);
         return "teacher/show";
     }
+
+    //审阅周报，添加审阅意见
     @PostMapping("/teacher/check")
     public String checkWeekly(Weekly weekly,Map<String,String> map){
         weekly.setCheckStatus("已审阅");

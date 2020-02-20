@@ -16,12 +16,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-
+/**
+ * 学生端
+ */
 @Controller
 public class WeeklyController {
     @Autowired
     private  WeeklyMapper weeklyMapper;
-
+    //获取周报列表，每个人只能查看自己的
     @GetMapping("/weekly")
     public String findWeeklyList(Model model, HttpSession session){
         Object studentNumber = session.getAttribute("studentNumber");
@@ -29,7 +31,7 @@ public class WeeklyController {
         model.addAttribute("weeklys",weeklys);
         return "student/list";
     }
-
+    //添加周报的表单提交
     @PostMapping("/add")
     public String addWeekly(Map<String,String> map,@RequestParam("weeklyId")String weekltid, @RequestParam("weeklyId1") String weekltid_1, @RequestParam("file") MultipartFile file,Weekly weekly){
         //周报添加页面
@@ -85,7 +87,7 @@ public class WeeklyController {
         model.addAttribute("weekly",weeklyByStudentNumberAndWeeklyId);
         return "student/show";
     }
-
+    //跳转到编辑周报页面
     @GetMapping("/edit/{weeklyid}")
     public String toEditPage(@PathVariable("weeklyid") String weeklyId, Model model, HttpSession session){
         Object studentNumber = session.getAttribute("studentNumber");
@@ -96,7 +98,7 @@ public class WeeklyController {
         model.addAttribute("weekly",weeklyByStudentNumberAndWeeklyId);
         return "student/edit";
     }
-
+    //编辑周报的表单提交
     @PostMapping("/edit")
     public String editWeekly(@RequestParam("file") MultipartFile file,@RequestParam("weeklyId")String weekltid,@RequestParam("weeklyId1") String weekltid_1,Weekly weekly){
         //周报编辑页面
